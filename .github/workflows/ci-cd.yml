@@ -1,0 +1,77 @@
+name: Primeiro workflow com GitHub Actions 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Executar commandos
+        run: |
+          AGORA=`date +%Y/%m/%d-%H:%M:%S`
+          echo "date ===> $AGORA"
+          echo "hostname ===> `hostname`"
+          echo "github.actor ===> ${{ github.actor }}"
+          echo "github.event_name ===> ${{ github.event_name }}"
+          echo "github.ref ===> ${{ github.ref }}"
+          echo "github.repository ===> ${{ github.repository }}"
+          echo "github.repository_owner ===> ${{ github.repository_owner }}"
+          echo "github.workspace ===> ${{ github.workspace }}"
+          echo "github.run_number ===> ${{ github.run_number }}"
+          echo "runner / runner.os / runner.name / runner.arch / runner.temp / runner.tool_cache / runner.environment"
+          echo "===> ${{ runner }} / ${{ runner.os }} / ${{ runner.name }} / ${{ runner.arch }} / ${{ runner.temp }} / ${{ runner.tool_cache }} / ${{ runner.environment }}"
+          echo "pwd ===> `pwd`"
+          echo "id ===>`id`"
+          echo "df -hT / ===> "; df -hT /
+          ls -la /
+          echo "======================================================"
+          cat /etc/os-release
+          echo "======================================================"
+          which apt 2>/dev/null || echo "NOT apt"
+          which dnf 2>/dev/null || echo "NOT dnf"
+          which apk 2>/dev/null || echo "NOT apk"
+          which docker 2>/dev/null || echo "NOT docker"
+          which git 2>/dev/null || echo "NOT git"
+
+      - name: Mostra variáveis de ambiente
+        run: |
+          echo "======================================================"
+          env
+          echo "======================================================"
+
+      - name: Docker Build & Push
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+            image: jarbelix/asterisk-ubuntu
+            tags: v1, latest
+            registry: docker.io
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+      
+  comands:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute commands
+        run: |
+          AGORA=`date +%Y/%m/%d-%H:%M:%S`
+          echo "date ===> $AGORA"
+          echo "======================================================"
+          cat /etc/os-release
+          echo "======================================================"
+          which apt 2>/dev/null || echo "NOT apt"
+          which dnf 2>/dev/null || echo "NOT dnf"
+          which apk 2>/dev/null || echo "NOT apk"
+          which docker 2>/dev/null || echo "NOT docker"
+          which git 2>/dev/null || echo "NOT git"
+
