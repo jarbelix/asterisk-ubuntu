@@ -74,7 +74,7 @@ jobs:
       - name: Docker Build & Push
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-            image: ${{ github.repository }}
+            image: jarbelix/asterisk-ubuntu
             platform: linux/amd64,linux/arm64
             tags: v${{ github.run_number }}, latest
             registry: docker.io
