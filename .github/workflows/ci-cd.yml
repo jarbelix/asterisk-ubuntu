@@ -77,6 +77,7 @@ jobs:
       #   uses: mr-smithers-excellent/docker-build-push@v6
       #   with:
       #       image: jarbelix/asterisk-ubuntu
+      #       platform: linux/amd64,linux/arm64
       #       tags: v1, latest
       #       registry: docker.io
       #       username: ${{ secrets.DOCKER_USERNAME }}
