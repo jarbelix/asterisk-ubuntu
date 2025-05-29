@@ -1,6 +1,5 @@
-# Use syntax version 1.3-labs for Dockerfile
-# syntax=docker/dockerfile:1.3-labs
- 
+# Baseado em: https://github.com/hectorespert/docker-asterisk/blob/main/Dockerfile
+
 # Use the Ubuntu latest as the base image
 FROM ubuntu:latest
  
@@ -12,20 +11,17 @@ FROM ubuntu:latest
 # This is all run in a HEREDOC; see
 # https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/
 # for more details.
-#
 
 # ENV DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
 apt-get update;
-apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame;
+apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree;
 apt-get clean;
 rm -rf /var/lib/apt/lists/*;
 EOF
 
-WORKDIR /
-
-# See this: https://github.com/hectorespert/docker-asterisk/blob/main/Dockerfile
+WORKDIR /root/
 
 ADD etc/asterisk/manager.conf /etc/asterisk/manager.conf
 ADD etc/asterisk/manager.d/ami.conf /etc/asterisk/manager.d/ami.conf
@@ -35,10 +31,8 @@ ADD etc/asterisk/ari.conf /etc/asterisk/ari.conf
 # Expose necessary ports
 EXPOSE 80/tcp 18083/tcp 5060/udp 5060/tcp
  
-# Run with ENTRYPOINT
-ENTRYPOINT ["/bin/bash"]
+# # Run with ENTRYPOINT
+# ENTRYPOINT ["/bin/bash"]
 
-# Set the default command
-#CMD ["asterisk", "-f"]
-
-
+# # Set the default command
+CMD ["asterisk", "-f"]
