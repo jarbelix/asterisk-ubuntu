@@ -71,13 +71,11 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: jarbelix/asterisk-ubuntu:latest
+          tags: jarbelix/asterisk-ubuntu:latest, jarbelix/asterisk-ubuntu:v1
       
       # - name: Docker Build & Push
       #   uses: mr-smithers-excellent/docker-build-push@v6
       #   with:
-      #       platforms: linux/amd64,linux/arm64
-      #       push: true
       #       image: jarbelix/asterisk-ubuntu
       #       tags: v1, latest
       #       registry: docker.io
