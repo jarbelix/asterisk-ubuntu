@@ -2,7 +2,7 @@
 
 Asterisk docker image preconfigurada para testes
 
-Baseado em [testcontainers-spring-boot-asterisk](https://github.com/hectorespert/testcontainers-spring-boot-asterisk)
+Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 
 Instalação do FreePBX17 no Ubuntu 24.04 LTS
 
