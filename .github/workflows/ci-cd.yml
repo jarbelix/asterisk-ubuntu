@@ -76,7 +76,7 @@ jobs:
         with:
             image: jarbelix/asterisk-ubuntu
             platform: linux/amd64,linux/arm64
-            tags: v${{ github.run_number }}, latest
+            tags: v1, latest
             registry: docker.io
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
