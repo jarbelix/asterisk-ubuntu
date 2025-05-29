@@ -9,16 +9,15 @@ on:
 # Your workflows jobs.
 jobs:
 
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     
     steps:
-      # Check-out your repository.
-      - name: Checkout do código
+
+      - name: Checkout do repositório de código
         uses: actions/checkout@v4
 
-      # Executar comandos linux
-      - name: Executar commandos
+      - name: Executar commandos linux
         run: |
           AGORA=`date +%Y/%m/%d-%H:%M:%S`
           echo "date ===> $AGORA"
@@ -45,46 +44,45 @@ jobs:
           which docker 2>/dev/null || echo "NOT docker"
           which git 2>/dev/null || echo "NOT git"
 
-      # Mostra variáveis de ambiente
-      - name: Mostra env variáveis
+      - name: Mostra variáveis de ambiente
         run: |
           echo "======================================================"
           env
           echo "======================================================"
 
-      # Multi-plataform image - https://docs.docker.com/build/ci/github-actions/multi-platform/
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # # Multi-plataform image - https://docs.docker.com/build/ci/github-actions/multi-platform/
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v3
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
 
-      # Login no Docker Hub
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Constroi imagem e armazena no docker hub
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: jarbelix/asterisk-ubuntu:latest, jarbelix/asterisk-ubuntu:v1
-      
-      # - name: Docker Build & Push
-      #   uses: mr-smithers-excellent/docker-build-push@v6
+      # # Login no Docker Hub
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
       #   with:
-      #       image: jarbelix/asterisk-ubuntu
-      #       platform: linux/amd64,linux/arm64
-      #       tags: v1, latest
-      #       registry: docker.io
-      #       username: ${{ secrets.DOCKER_USERNAME }}
-      #       password: ${{ secrets.DOCKER_PASSWORD }}
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # # Constroi imagem e armazena no docker hub
+      # - name: Build and push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     platforms: linux/amd64,linux/arm64
+      #     push: true
+      #     tags: jarbelix/asterisk-ubuntu:latest, jarbelix/asterisk-ubuntu:v1
+      
+      - name: Docker Build & Push
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+            image: ${{ github.repository }}
+            platform: linux/amd64,linux/arm64
+            tags: v${{ github.run_number }}, latest
+            registry: docker.io
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
       
   new-comands:
-    needs: build
+    needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
