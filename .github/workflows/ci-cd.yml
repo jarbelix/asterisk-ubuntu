@@ -1,20 +1,23 @@
+# Your workflow name.
 name: Primeiro workflow com GitHub Actions 🚀
 
+# Run workflow on every push to main branch.
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
+# Your workflows jobs.
 jobs:
 
-  deploy:
+  build:
     runs-on: ubuntu-latest
     
     steps:
-
+      # Check-out your repository.
       - name: Checkout do código
         uses: actions/checkout@v4
 
+      # Executar comandos linux
       - name: Executar commandos
         run: |
           AGORA=`date +%Y/%m/%d-%H:%M:%S`
@@ -42,15 +45,20 @@ jobs:
           which docker 2>/dev/null || echo "NOT docker"
           which git 2>/dev/null || echo "NOT git"
 
-      - name: Mostra variáveis de ambiente
+      # Mostra variáveis de ambiente
+      - name: Mostra env variáveis
         run: |
           echo "======================================================"
           env
           echo "======================================================"
 
+      # Multi-plataform image - https://docs.docker.com/build/ci/github-actions/multi-platform/
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
+      # Build and push image
       - name: Docker Build & Push
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -62,7 +70,7 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
       
   new-comands:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
