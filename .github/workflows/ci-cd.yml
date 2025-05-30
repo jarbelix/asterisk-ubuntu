@@ -47,39 +47,39 @@ jobs:
           env
           echo "======================================================"
 
+      - name: Checkout do repositório de código
+        uses: actions/checkout@v4
+        
       # Multi-plataform image - https://docs.docker.com/build/ci/github-actions/multi-platform/
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # # Login no Docker Hub
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # # Constroi imagem e armazena no docker hub
-      # - name: Build and push
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     platforms: linux/amd64,linux/arm64
-      #     push: true
-      #     tags: jarbelix/asterisk-ubuntu:latest, jarbelix/asterisk-ubuntu:v1
-
-      - name: Checkout do repositório de código
-        uses: actions/checkout@v4
-
-      - name: Build & push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v6
+      # Login no Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-            image: jarbelix/asterisk-ubuntu
-            platform: linux/amd64,linux/arm64
-            tags: v1, latest
-            registry: docker.io
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Constroi imagem e armazena no docker hub
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: jarbelix/asterisk-ubuntu:latest, jarbelix/asterisk-ubuntu:v1
+
+      # - name: Build & push Docker image
+      #   uses: mr-smithers-excellent/docker-build-push@v6
+      #   with:
+      #       image: jarbelix/asterisk-ubuntu
+      #       platform: linux/amd64,linux/arm64
+      #       tags: v1, latest
+      #       registry: docker.io
+      #       username: ${{ secrets.DOCKER_USERNAME }}
+      #       password: ${{ secrets.DOCKER_PASSWORD }}
       
   new-comands:
     needs: build-and-push
