@@ -2,6 +2,20 @@
 
 Asterisk docker image preconfigurada para testes
 
+```
+  _____________________________________________________________________________
+/\                                                                            \
+\_|     _        _            _     _      _   _ _                 _          |
+  |    / \   ___| |_ ___ _ __(_)___| | __ | | | | |__  _   _ _ __ | |_ _   _  |
+  |   / _ \ / __| __/ _ \ '__| / __| |/ / | | | | '_ \| | | | '_ \| __| | | | |
+  |  / ___ \\__ \ ||  __/ |  | \__ \   <  | |_| | |_) | |_| | | | | |_| |_| | |
+  | /_/   \_\___/\__\___|_|  |_|___/_|\_\  \___/|_.__/ \__,_|_| |_|\__|\__,_| |
+  |                                                                           |
+  |   ________________________________________________________________________|_
+   \_/__________________________________________________________________________/
+
+```
+
 Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 
 ## Instalação do FreePBX17 no Ubuntu 24.04 LTS
@@ -22,9 +36,14 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 
 * https://packages.ubuntu.com/search?keywords=asterisk
 
+# Links Úteis pra deploy
+
+* Dockerfile reference - https://docs.docker.com/reference/ 
+* Docker Best Practices - https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/
+* CI/CD pipeline - https://github.com/marketplace/actions/docker-build-push-action
 # Desenvolvimento
 
-## Build
+## Build manual
 
 ```bash
 docker build --tag jarbelix/asterisk-ubuntu --file Dockerfile .
@@ -60,7 +79,3 @@ docker exec -it asterisk-server /bin/bash
 # htop
 # tree
 ```
-
-# CI/CD pipeline
-
-* https://github.com/marketplace/actions/docker-build-push-action

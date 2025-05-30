@@ -24,6 +24,7 @@ EOF
 WORKDIR /root/
 
 ADD root/.bashrc /root/.bashrc
+ADD etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
 ADD etc/asterisk/manager.conf /etc/asterisk/manager.conf
 ADD etc/asterisk/manager.d/ami.conf /etc/asterisk/manager.d/ami.conf
 ADD etc/asterisk/http.conf /etc/asterisk/http.conf
