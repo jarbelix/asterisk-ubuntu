@@ -51,10 +51,16 @@ docker pull jarbelix/asterisk-ubuntu
 # Executando o container
 
 ```bash
-docker run --rm -it --name asterisk -p 5038:5038 -p 8088:8088 jarbelix/asterisk-ubuntu /bin/bash
+docker run --rm --name asterisk-server -p 5038:5038 -p 8088:8088 jarbelix/asterisk-ubuntu
+```
+
+# Entrando no container
+```bash
+docker exec -it asterisk-server /bin/bash
 # htop
 # tree
 ```
+
 # CI/CD pipeline
 
 * https://github.com/marketplace/actions/docker-build-push-action
