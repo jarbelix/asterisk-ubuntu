@@ -21,8 +21,8 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 ## Instalação do FreePBX17 no Ubuntu 24.04 LTS
 
 * https://github.com/rajannpatel/ubuntupbx
-
 * https://ubuntu.com/blog/install-freepbx-and-asterisk-on-ubuntu-24-04-lts-for-security-patches-until-2036
+* https://github.com/FreePBX/sng_freepbx_debian_install
 
 ## Running Asterisk 22 in a Docker container
 
