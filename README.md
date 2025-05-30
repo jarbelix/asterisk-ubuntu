@@ -88,6 +88,16 @@ $ docker exec -it asterisk-server /bin/bash
    \_/__________________________________________________________________________/
 
 ┌─[root@e60acebfad0b]─[/etc/asterisk]─[Fri May 30 13:22:42 UTC]
-└──╼ # 
+└──╼ # asterisk -rv
+Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5, Copyright (C) 1999 - 2022, Sangoma Technologies Corporation and others.
+Created by Mark Spencer <markster@digium.com>
+Asterisk comes with ABSOLUTELY NO WARRANTY; type 'core show warranty' for details.
+This is free software, with components licensed under the GNU General Public
+License version 2 and other licenses; you are welcome to redistribute it under
+certain conditions. Type 'core show license' for details.
+=========================================================================
+Connected to Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5 currently running on b0c77e2f59df (pid = 1)
+Unable to read or write history file '/root/.asterisk_history'
+b0c77e2f59df*CLI>
 
 ```
