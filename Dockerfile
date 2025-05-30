@@ -1,5 +1,3 @@
-# Baseado em: https://github.com/hectorespert/docker-asterisk/blob/main/Dockerfile
-
 # Use the Ubuntu latest as the base image
 FROM ubuntu:latest
  
@@ -12,8 +10,6 @@ FROM ubuntu:latest
 # https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/
 # for more details.
 
-# ENV DEBIAN_FRONTEND=noninteractive
-
 RUN <<EOF
 apt-get update;
 apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree;
@@ -21,7 +17,7 @@ apt-get clean;
 rm -rf /var/lib/apt/lists/*;
 EOF
 
-WORKDIR /root/
+WORKDIR /etc/asterisk
 
 ADD root/.bashrc /root/.bashrc
 ADD etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
