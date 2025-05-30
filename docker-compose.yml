@@ -1,0 +1,35 @@
+services:
+  asterisk-server:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: jarbelix/asterisk-ubuntu
+    restart: unless-stopped
+    volumes:
+      - asterisk_config.:/etc/asterisk
+    ports:
+      - 5038:5038
+      - 5060:5060
+      - 18083:18083
+      
+
+  mysql-server:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-asterisk}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_USER: ${DB_USERNAME:-asterisk}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-asterisk}
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data.:/var/lib/mysql
+
+volumes:
+  asterisk_config.:
+  mysql_data.:
+    driver: local
+
+# networks:
+#   asterisk:

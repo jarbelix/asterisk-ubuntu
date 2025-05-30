@@ -70,7 +70,7 @@ docker pull jarbelix/asterisk-ubuntu
 # Executando o container
 
 ```bash
-docker run --rm --name asterisk-server -p 5038:5038 -p 8088:8088 jarbelix/asterisk-ubuntu
+docker run --rm --name asterisk-server jarbelix/asterisk-ubuntu
 ```
 
 # Entrando no container
@@ -100,4 +100,11 @@ Connected to Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5 currently running on 
 Unable to read or write history file '/root/.asterisk_history'
 b0c77e2f59df*CLI>
 
+```
+
+# Orquertrando com o docker-compose.yml
+```bash
+git clone https://github.com/jarbelix/asterisk-ubuntu.git
+cd asterisk-ubuntu
+docker-compose up -d
 ```

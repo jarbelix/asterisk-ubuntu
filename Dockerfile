@@ -12,7 +12,7 @@ FROM ubuntu:latest
 
 RUN <<EOF
 apt-get update;
-apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree;
+apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree iputils-ping;
 apt-get clean;
 rm -rf /var/lib/apt/lists/*;
 EOF
@@ -27,7 +27,7 @@ ADD etc/asterisk/http.conf /etc/asterisk/http.conf
 ADD etc/asterisk/ari.conf /etc/asterisk/ari.conf
 
 # Expose necessary ports
-EXPOSE 80/tcp 18083/tcp 5060/udp 5060/tcp
+EXPOSE 18083/tcp 5060/tcp 1-65530/udp
  
 # # Run with ENTRYPOINT
 # ENTRYPOINT ["/bin/bash"]
