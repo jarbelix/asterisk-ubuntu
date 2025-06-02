@@ -46,7 +46,7 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 ## Build manual
 
 ```bash
-docker build --tag jarbelix/asterisk-ubuntu --file Dockerfile .
+docker build --no-cache --tag jarbelix/asterisk-ubuntu --file Dockerfile .
 ```
 
 ## Enviando a imagem docker para hub.docker.com
