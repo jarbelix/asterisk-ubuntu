@@ -40,9 +40,12 @@ ADD etc/asterisk/ari.conf $_ETC/ari.conf
 
 # Expose necessary ports
 EXPOSE 18083/tcp 5060/tcp 1-65530/udp
+
+# Set the default user
+USER asterisk
  
 # # Run with ENTRYPOINT
-
 # ENTRYPOINT ["asterisk", "-f"]
+
 # # Set the default command
 CMD ["asterisk", "-f"]
