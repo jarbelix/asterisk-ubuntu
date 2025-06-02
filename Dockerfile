@@ -1,6 +1,13 @@
+# syntax=docker/dockerfile:1.3-labs
+
 # Use the Ubuntu latest as the base image
 FROM ubuntu:latest
- 
+
+LABEL maintainer="Tiozão do Linux <jarbas.junior@gmail.com>"
+LABEL author="Jarbas <jarbas.junior@gmail.com>"
+
+
+# Install necessary packages
 # Run the following commands inside the container:
 # 1. Update the package lists for upgrades and new package installations
 # 2. Install the asterisk package
@@ -30,7 +37,7 @@ ADD etc/asterisk/ari.conf /etc/asterisk/ari.conf
 EXPOSE 18083/tcp 5060/tcp 1-65530/udp
  
 # # Run with ENTRYPOINT
-# ENTRYPOINT ["/bin/bash"]
 
+# ENTRYPOINT ["asterisk", "-f"]
 # # Set the default command
 CMD ["asterisk", "-f"]

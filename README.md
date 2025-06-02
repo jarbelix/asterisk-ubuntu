@@ -102,7 +102,7 @@ b0c77e2f59df*CLI>
 
 ```
 
-# Orquertrando com o docker-compose.yml
+# Orquestrando com o docker-compose.yml
 ```bash
 git clone https://github.com/jarbelix/asterisk-ubuntu.git
 cd asterisk-ubuntu
