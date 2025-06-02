@@ -19,27 +19,31 @@ LABEL author="Jarbas <jarbas.junior@gmail.com>"
 # 2. Install the asterisk package
 # 3. Remove the package lists to reduce the image size
 
-# Disable interactive mode for debian packages only in build stage
-ARG DEBIAN_FRONTEND=noninteractive  
+# # Disable interactive mode for debian packages only in build stage
+# ARG DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
 apt-get update
-apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree iputils-ping
+apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree iputils-ping curl jq
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 EOF
 
 WORKDIR $_ETC
 
-ADD root/.bashrc /root/.bashrc
-ADD etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
-ADD etc/asterisk/manager.conf $_ETC/manager.conf
-ADD etc/asterisk/manager.d/ami.conf $_ETC/manager.d/ami.conf
-ADD etc/asterisk/http.conf $_ETC/http.conf
-ADD etc/asterisk/ari.conf $_ETC/ari.conf
+COPY root/* /root/
+COPY --chmod=u+x etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
 
-# Expose necessary ports
-EXPOSE 18083/tcp 5060/tcp 1-65530/udp
+COPY --chown=asterisk:asterisk etc/asterisk/*.conf $_ETC/
+COPY --chown=asterisk:asterisk etc/asterisk/manager.d/*.conf $_ETC/manager.d/
+
+# ADD https://github.com/jarbelix/asterisk-ubuntu.git /opt/asterisk-ubuntu
+
+# # Expose necessary ports
+# EXPOSE 18083/tcp 5060/tcp 1-65530/udp
+
+# # Volumization
+# VOLUME ["/etc/asterisk", "/var/lib/asterisk", "/var/log/asterisk"]
 
 # # Set the default user
 # USER asterisk

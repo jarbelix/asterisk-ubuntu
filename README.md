@@ -46,7 +46,7 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 ## Build manual
 
 ```bash
-docker build --no-cache --tag jarbelix/asterisk-ubuntu --file Dockerfile .
+docker build --tag jarbelix/asterisk-ubuntu --file Dockerfile .
 ```
 
 ## Enviando a imagem docker para hub.docker.com
@@ -73,9 +73,9 @@ docker pull jarbelix/asterisk-ubuntu
 docker run --rm --name asterisk-server jarbelix/asterisk-ubuntu
 ```
 
-# Entrando no container
-```bash
-$ docker exec -it asterisk-server /bin/bash
+# Entrando no container (em outro terminal)
+```
+docker exec -it asterisk-ubuntu-asterisk-server-1 /bin/bash
   _____________________________________________________________________________
 /\                                                                            \
 \_|     _        _            _     _      _   _ _                 _          |
@@ -87,7 +87,21 @@ $ docker exec -it asterisk-server /bin/bash
   |   ________________________________________________________________________|_
    \_/__________________________________________________________________________/
 
-┌─[root@e60acebfad0b]─[/etc/asterisk]─[Fri May 30 13:22:42 UTC]
+┌─[root@a8e99d8e9be7]─[/etc/asterisk]─[Mon Jun 02 19:30:27 UTC]
+└──╼ # meuip
+{
+  "ip": "179.151.8.153",
+  "hostname": "179-151-8-153.user.vivozap.com.br",
+  "city": "Rondonópolis",
+  "region": "Mato Grosso",
+  "country": "BR",
+  "loc": "-16.4708,-54.6356",
+  "org": "AS26599 TELEFÔNICA BRASIL S.A",
+  "postal": "78700-000",
+  "timezone": "America/Cuiaba",
+  "readme": "https://ipinfo.io/missingauth"
+}
+┌─[root@a8e99d8e9be7]─[/etc/asterisk]─[Mon Jun 02 19:30:30 UTC]
 └──╼ # asterisk -rv
 Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5, Copyright (C) 1999 - 2022, Sangoma Technologies Corporation and others.
 Created by Mark Spencer <markster@digium.com>
@@ -96,15 +110,31 @@ This is free software, with components licensed under the GNU General Public
 License version 2 and other licenses; you are welcome to redistribute it under
 certain conditions. Type 'core show license' for details.
 =========================================================================
-Connected to Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5 currently running on b0c77e2f59df (pid = 1)
+Connected to Asterisk 20.6.0~dfsg+~cs6.13.40431414-2build5 currently running on a8e99d8e9be7 (pid = 1)
 Unable to read or write history file '/root/.asterisk_history'
-b0c77e2f59df*CLI>
-
+a8e99d8e9be7*CLI> quit
+Asterisk cleanly ending (0).
+Executing last minute cleanups
+┌─[root@a8e99d8e9be7]─[/etc/asterisk]─[Mon Jun 02 19:30:36 UTC]
+└──╼ #
 ```
 
 # Orquestrando com o docker-compose.yml
 ```bash
+# Clonar o repositório
 git clone https://github.com/jarbelix/asterisk-ubuntu.git
 cd asterisk-ubuntu
-docker-compose up -d
+
+# Rodando os containers
+docker compose up -d
+
+# Verificando os logs
+docker compose logs -f
+
+# Verificando os volumes
+docker volume ls
+
+# Parando os containers
+docker compose down
+
 ```
