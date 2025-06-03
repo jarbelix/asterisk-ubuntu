@@ -1,24 +1,45 @@
 services:
+
   asterisk-server:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: jarbelix/asterisk-ubuntu
+    image: jarbelix/asterisk-ubuntu:latest
     restart: unless-stopped
+    depends_on:
+     - mysql-server
     volumes:
       - asterisk_config:/etc/asterisk
     ports:
-      - 5038:5038
-      - 5060:5060
-      - 18083:18083
-      
+      - 5038:5038 # AMI
+      - 5060:5060 # SIP
+      - 10000-20000:10000-20000 # RTP
 
+  # # Debian based image
+  # mysql-server:
+  #   image: bitnami/mysql:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     ALLOW_EMPTY_PASSWORD: yes
+  #     MYSQL_ROOT_USER: root
+  #     # MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-asterisk}
+  #     MYSQL_DATABASE: ${DB_DATABASE:-asterisk}
+  #     MYSQL_USER: ${DB_USERNAME:-asterisk}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD:-asterisk}
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - mysql_data:/bitnami/mysql/data
+
+  # Oracle Linux based image # https://hub.docker.com/_/mysql
   mysql-server:
-    image: mysql
+    image: mysql:lts  # 8.4
     restart: unless-stopped
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_USER: root
+      # MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-asterisk}
       MYSQL_DATABASE: ${DB_DATABASE:-asterisk}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
       MYSQL_USER: ${DB_USERNAME:-asterisk}
       MYSQL_PASSWORD: ${DB_PASSWORD:-asterisk}
     ports:
@@ -33,3 +54,4 @@ volumes:
 
 # networks:
 #   asterisk:
+#     driver: bridge

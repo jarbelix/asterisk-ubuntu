@@ -41,12 +41,13 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 * Dockerfile reference - https://docs.docker.com/reference/ 
 * Docker Best Practices - https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/
 * CI/CD pipeline - https://github.com/marketplace/actions/docker-build-push-action
+
 # Desenvolvimento
 
 ## Build manual
 
 ```bash
-docker build --tag jarbelix/asterisk-ubuntu --file Dockerfile .
+docker build --no-cache --tag jarbelix/asterisk-ubuntu --file Dockerfile .
 ```
 
 ## Enviando a imagem docker para hub.docker.com
@@ -57,23 +58,23 @@ docker login --username jarbelix
 docker push jarbelix/asterisk-ubuntu
 ```
 
-# Hub do Jarbelix
+## Hub do Jarbelix
 
 * https://hub.docker.com/u/jarbelix
 
-# Baixando o container disponível no hub.docker.com
+## Baixando o container disponível no hub.docker.com
 
 ```bash
 docker pull jarbelix/asterisk-ubuntu
 ```
 
-# Executando o container
+## Executando o container
 
 ```bash
 docker run --rm --name asterisk-server jarbelix/asterisk-ubuntu
 ```
 
-# Entrando no container (em outro terminal)
+## Entrando no container (em outro terminal)
 ```
 docker exec -it asterisk-ubuntu-asterisk-server-1 /bin/bash
   _____________________________________________________________________________
@@ -131,10 +132,13 @@ docker compose up -d
 # Verificando os logs
 docker compose logs -f
 
+# Parando os containers
+docker compose down
+
 # Verificando os volumes
 docker volume ls
 
-# Parando os containers
-docker compose down
+# Removendo os volumes
+docker volume rm asterisk-ubuntu_asterisk_config asterisk-ubuntu_mysql_data
 
 ```

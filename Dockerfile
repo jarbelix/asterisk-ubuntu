@@ -1,55 +1,69 @@
-# Use syntax version 1.3-labs for Dockerfile
-# syntax=docker/dockerfile:1.3-labs
+# Use uma versão LTS específica do Ubuntu para maior consistência
+# 24.04 - noble, 22.04 - jammy, 20.04 - focal, 18.04 - squeeze
+ARG UBUNTU_LTS_VERSION=24.04
+FROM ubuntu:${UBUNTU_LTS_VERSION}
 
-# Use the Ubuntu latest as the base image
-ARG VERSION=latest
-FROM ubuntu:$VERSION
-ARG VERSION
-
-# Define environment variables
+# Define variáveis de ambiente
 ENV _ETC="/etc/asterisk"
 
-# Set the image metadata
+# Definir alguns metadados
 LABEL maintainer="Tiozão do Linux <jarbas.junior@gmail.com>"
 LABEL author="Jarbas <jarbas.junior@gmail.com>"
 
+# Desabilitar modo interativo para pacotes do debian apenas na fase de construção
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Install necessary packages
-# Run the following commands inside the container:
-# 1. Update the package lists for upgrades and new package installations
-# 2. Install the asterisk package
-# 3. Remove the package lists to reduce the image size
-
-# # Disable interactive mode for debian packages only in build stage
-# ARG DEBIAN_FRONTEND=noninteractive
-
 RUN <<EOF
 apt-get update
-apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323 lame htop tree iputils-ping curl jq
+apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323
+apt-get install -y lame htop tree iputils-ping curl jq
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 EOF
 
 WORKDIR $_ETC
 
-COPY root/* /root/
+# Copiar arquivos do /root
+COPY root/ /root/
+
+# Copia e torna executável o script de profile
 COPY --chmod=u+x etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
 
+# Copia arquivos de configuração do Asterisk
 COPY --chown=asterisk:asterisk etc/asterisk/*.conf $_ETC/
 COPY --chown=asterisk:asterisk etc/asterisk/manager.d/*.conf $_ETC/manager.d/
 
 # ADD https://github.com/jarbelix/asterisk-ubuntu.git /opt/asterisk-ubuntu
 
-# # Expose necessary ports
-# EXPOSE 18083/tcp 5060/tcp 1-65530/udp
+# Expõe as portas padrão do Asterisk (documentação)
+# 5060/udp (SIP)
+# 5060/tcp (SIP, se usado)
+# 5061/tcp (SIP TLS, se usado)
+# 10000-20000/udp (RTP - o range pode variar conforme sua configuração em rtp.conf)
+# 4569/udp (IAX2)
+# 5038/tcp (AMI - Asterisk Manager Interface)
+# Ajuste conforme sua necessidade e configuração (especialmente RTP)
+EXPOSE 5060/udp
+EXPOSE 5060/tcp
+EXPOSE 5061/tcp
+EXPOSE 5038/tcp
+EXPOSE 4569/udp
+EXPOSE 10000-20000/udp
 
-# # Volumization
-# VOLUME ["/etc/asterisk", "/var/lib/asterisk", "/var/log/asterisk"]
+# Volumes a serem compartilhados
+VOLUME ["/etc/asterisk", "/var/lib/asterisk", "/var/log/asterisk", "/var/spool/asterisk"]
 
-# # Set the default user
+# Define qual usuario vai executar o asterisk
 # USER asterisk
- 
+
 # # Run with ENTRYPOINT
 # ENTRYPOINT ["asterisk", "-f"]
 
-# # Set the default command
+# Comando padrão para iniciar o Asterisk em foreground
+# Considere flags adicionais como -vvvg para mais verbosidade ou -c para console
 CMD ["asterisk", "-f"]
+
+# Opcional: Adicionar um HEALTHCHECK
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD asterisk -rx "core show uptime" || exit 1
