@@ -13,7 +13,7 @@ services:
     ports:
       - 5038:5038 # AMI
       - 5060:5060 # SIP
-      - 10000-20000:10000-20000 # RTP
+      - 20000-30000:20000-30000 # RTP
 
   # # Debian based image
   # mysql-server:

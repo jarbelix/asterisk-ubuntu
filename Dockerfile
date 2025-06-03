@@ -49,7 +49,7 @@ EXPOSE 5060/tcp
 EXPOSE 5061/tcp
 EXPOSE 5038/tcp
 EXPOSE 4569/udp
-EXPOSE 10000-20000/udp
+EXPOSE 20000-30000/udp
 
 # Volumes a serem compartilhados
 VOLUME ["/etc/asterisk", "/var/lib/asterisk", "/var/log/asterisk", "/var/spool/asterisk"]
