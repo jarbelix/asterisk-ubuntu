@@ -111,13 +111,11 @@ ORACLE_SUPPORT_PRODUCT_VERSION=9.6
 bash-5.1# 
 ```
 
-# Versões Oficiais do Asterisk
-
-* https://docs.asterisk.org/About-the-Project/Asterisk-Versions/
-
-## Pacotes asterisk no Ubuntu
-
-* https://packages.ubuntu.com/search?keywords=asterisk
+# Documentos relacinados ao Asterisk
+* Versões Oficiais do Asterisk - https://docs.asterisk.org/About-the-Project/Asterisk-Versions/
+* Pacotes asterisk no Ubuntu - https://packages.ubuntu.com/search?keywords=asterisk
+* Glossario - https://www.asterisk.org/get-started/glossary/
+* Guia Definitivo - http://www.asteriskdocs.org/
 
 # Instalação do FreePBX17 no Ubuntu 24.04 LTS
 

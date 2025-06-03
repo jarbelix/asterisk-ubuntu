@@ -31,8 +31,11 @@ COPY root/ /root/
 COPY --chmod=u+x etc/profile.d/asterisk.sh /etc/profile.d/asterisk.sh
 
 # Copia arquivos de configuração do Asterisk
-COPY --chown=asterisk:asterisk etc/asterisk/*.conf $_ETC/
-COPY --chown=asterisk:asterisk etc/asterisk/manager.d/*.conf $_ETC/manager.d/
+COPY --chown=asterisk:asterisk etc/asterisk/ /etc/asterisk/
+COPY --chown=asterisk:asterisk etc/asterisk/manager.d/ /etc/asterisk/manager.d/
+
+# Copia arquivos de configuração do MySQL
+COPY --chown=asterisk:asterisk var/lib/asterisk/moh/ var/lib/asterisk/moh/
 
 # ADD https://github.com/jarbelix/asterisk-ubuntu.git /opt/asterisk-ubuntu
 
