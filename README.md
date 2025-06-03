@@ -1,7 +1,5 @@
 # Asterisk Docker Image
 
-Asterisk docker image preconfigurada para testes
-
 ```
 
                               __   _,--="=--,_   __
@@ -20,24 +18,34 @@ Asterisk docker image preconfigurada para testes
 '------------------------------------------------------------------------------'
 
 ```
+# Orquestrando com o docker-compose.yml
+```bash
+# Clonar o repositório
+git clone https://github.com/jarbelix/asterisk-ubuntu.git
+cd asterisk-ubuntu
 
-Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
+# Rodando os containers
+docker compose up -d
 
-## Instalação do FreePBX17 no Ubuntu 24.04 LTS
+# Verificando os logs
+docker compose logs -f
 
-* https://github.com/rajannpatel/ubuntupbx
-* https://ubuntu.com/blog/install-freepbx-and-asterisk-on-ubuntu-24-04-lts-for-security-patches-until-2036
-* https://github.com/FreePBX/sng_freepbx_debian_install
+# Parando os containers
+docker compose down
 
-## Running Asterisk 22 in a Docker container
+# Verificando os volumes
+docker volume ls
 
-* https://developernote.com/2025/01/running-asterisk-22-in-a-docker-container/
+# Removendo os volumes
+docker volume rm asterisk-ubuntu_asterisk_config asterisk-ubuntu_mysql_data
+
+```
 
 # Versões Oficiais do Asterisk
 
 * https://docs.asterisk.org/About-the-Project/Asterisk-Versions/
 
-## Pacotes asterisk no ubuntu
+## Pacotes asterisk no Ubuntu
 
 * https://packages.ubuntu.com/search?keywords=asterisk
 
@@ -47,7 +55,19 @@ Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
 * Docker Best Practices - https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/
 * CI/CD pipeline - https://github.com/marketplace/actions/docker-build-push-action
 
+# Instalação do FreePBX17 no Ubuntu 24.04 LTS
+
+* https://github.com/rajannpatel/ubuntupbx
+* https://ubuntu.com/blog/install-freepbx-and-asterisk-on-ubuntu-24-04-lts-for-security-patches-until-2036
+* https://github.com/FreePBX/sng_freepbx_debian_install
+
 # Desenvolvimento
+
+Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
+
+## Running Asterisk 22 in a Docker container
+
+* https://developernote.com/2025/01/running-asterisk-22-in-a-docker-container/
 
 ## Build manual
 
@@ -123,27 +143,4 @@ Asterisk cleanly ending (0).
 Executing last minute cleanups
 ┌─[root@a8e99d8e9be7]─[/etc/asterisk]─[Mon Jun 02 19:30:36 UTC]
 └──╼ #
-```
-
-# Orquestrando com o docker-compose.yml
-```bash
-# Clonar o repositório
-git clone https://github.com/jarbelix/asterisk-ubuntu.git
-cd asterisk-ubuntu
-
-# Rodando os containers
-docker compose up -d
-
-# Verificando os logs
-docker compose logs -f
-
-# Parando os containers
-docker compose down
-
-# Verificando os volumes
-docker volume ls
-
-# Removendo os volumes
-docker volume rm asterisk-ubuntu_asterisk_config asterisk-ubuntu_mysql_data
-
 ```
