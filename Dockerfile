@@ -37,8 +37,6 @@ COPY --chown=asterisk:asterisk etc/asterisk/manager.d/ /etc/asterisk/manager.d/
 # Copia arquivos de configuração do MySQL
 COPY --chown=asterisk:asterisk var/lib/asterisk/moh/ var/lib/asterisk/moh/
 
-# ADD https://github.com/jarbelix/asterisk-ubuntu.git /opt/asterisk-ubuntu
-
 # Expõe as portas padrão do Asterisk (documentação)
 # 5060/udp (SIP)
 # 5060/tcp (SIP, se usado)
