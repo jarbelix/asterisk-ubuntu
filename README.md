@@ -40,66 +40,7 @@ docker volume ls
 docker volume rm asterisk-ubuntu_asterisk_config asterisk-ubuntu_mysql_data
 
 ```
-
-# Versões Oficiais do Asterisk
-
-* https://docs.asterisk.org/About-the-Project/Asterisk-Versions/
-
-## Pacotes asterisk no Ubuntu
-
-* https://packages.ubuntu.com/search?keywords=asterisk
-
-# Links Úteis pra deploy
-
-* Dockerfile reference - https://docs.docker.com/reference/ 
-* Docker Best Practices - https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/
-* CI/CD pipeline - https://github.com/marketplace/actions/docker-build-push-action
-
-# Instalação do FreePBX17 no Ubuntu 24.04 LTS
-
-* https://github.com/rajannpatel/ubuntupbx
-* https://ubuntu.com/blog/install-freepbx-and-asterisk-on-ubuntu-24-04-lts-for-security-patches-until-2036
-* https://github.com/FreePBX/sng_freepbx_debian_install
-
-# Desenvolvimento
-
-Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
-
-## Running Asterisk 22 in a Docker container
-
-* https://developernote.com/2025/01/running-asterisk-22-in-a-docker-container/
-
-## Build manual
-
-```bash
-docker build --no-cache --tag jarbelix/asterisk-ubuntu --file Dockerfile .
-```
-
-## Enviando a imagem docker para hub.docker.com
-
-```bash
-docker login --username jarbelix
-
-docker push jarbelix/asterisk-ubuntu
-```
-
-## Hub do Jarbelix
-
-* https://hub.docker.com/u/jarbelix
-
-## Baixando o container disponível no hub.docker.com
-
-```bash
-docker pull jarbelix/asterisk-ubuntu
-```
-
-## Executando o container
-
-```bash
-docker run --rm --name asterisk-server jarbelix/asterisk-ubuntu
-```
-
-## Entrando no container (em outro terminal)
+## Entrando no asterisk-server (em outro terminal)
 ```
 docker exec -it asterisk-ubuntu-asterisk-server-1 /bin/bash
   _____________________________________________________________________________
@@ -144,3 +85,88 @@ Executing last minute cleanups
 ┌─[root@a8e99d8e9be7]─[/etc/asterisk]─[Mon Jun 02 19:30:36 UTC]
 └──╼ #
 ```
+## Entrando no mysql-server ( é um Oracle Linux Server e eu não sabia)
+
+```
+docker exec -it asterisk-ubuntu-mysql-server-1 /bin/bash
+bash-5.1# cat /etc/os-release 
+NAME="Oracle Linux Server"
+VERSION="9.6"
+ID="ol"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="9.6"
+PLATFORM_ID="platform:el9"
+PRETTY_NAME="Oracle Linux Server 9.6"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:oracle:linux:9:6:server"
+HOME_URL="https://linux.oracle.com/"
+BUG_REPORT_URL="https://github.com/oracle/oracle-linux"
+
+ORACLE_BUGZILLA_PRODUCT="Oracle Linux 9"
+ORACLE_BUGZILLA_PRODUCT_VERSION=9.6
+ORACLE_SUPPORT_PRODUCT="Oracle Linux"
+ORACLE_SUPPORT_PRODUCT_VERSION=9.6
+bash-5.1# 
+```
+
+# Versões Oficiais do Asterisk
+
+* https://docs.asterisk.org/About-the-Project/Asterisk-Versions/
+
+## Pacotes asterisk no Ubuntu
+
+* https://packages.ubuntu.com/search?keywords=asterisk
+
+# Instalação do FreePBX17 no Ubuntu 24.04 LTS
+
+* https://github.com/rajannpatel/ubuntupbx
+* https://ubuntu.com/blog/install-freepbx-and-asterisk-on-ubuntu-24-04-lts-for-security-patches-until-2036
+* https://github.com/FreePBX/sng_freepbx_debian_install
+
+# Desenvolvimento
+
+Baseado em https://github.com/hectorespert/testcontainers-spring-boot-asterisk
+
+## Links Úteis pra deploy
+
+* Dockerfile reference - https://docs.docker.com/reference/dockerfile/
+* Docker Best Pratices - https://docs.docker.com/build/building/best-practices/
+* Choosing RUN, CMD and ENTRYPOINT - https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/
+* CI/CD pipeline - https://github.com/marketplace/actions/docker-build-push-action
+
+## Running Asterisk 22 in a Docker container
+
+* https://developernote.com/2025/01/running-asterisk-22-in-a-docker-container/
+
+## Build manual
+
+```bash
+docker build --no-cache --tag jarbelix/asterisk-ubuntu --file Dockerfile .
+```
+
+## Enviando a imagem docker para hub.docker.com
+
+```bash
+docker login --username jarbelix
+
+docker push jarbelix/asterisk-ubuntu
+```
+
+## Hub do Jarbelix
+
+* https://hub.docker.com/u/jarbelix
+
+## Baixando o container disponível no hub.docker.com
+
+```bash
+docker pull jarbelix/asterisk-ubuntu
+```
+
+## Executando o container
+
+```bash
+docker run --rm --name asterisk-server jarbelix/asterisk-ubuntu
+```
+
