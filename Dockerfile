@@ -17,7 +17,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN <<EOF
 apt-get update
 apt-get install -y asterisk asterisk-mysql asterisk-mp3 asterisk-ooh323
-apt-get install -y lame htop tree iputils-ping curl jq
+apt-get install -y lame htop tree iputils-ping curl jq net-tools
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 EOF
