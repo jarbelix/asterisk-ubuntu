@@ -116,6 +116,7 @@ bash-5.1#
 * Pacotes asterisk no Ubuntu - https://packages.ubuntu.com/search?keywords=asterisk
 * Glossario - https://www.asterisk.org/get-started/glossary/
 * Guia Definitivo - http://www.asteriskdocs.org/
+* Getting Started with ARI - https://docs.asterisk.org/Configuration/Interfaces/Asterisk-REST-Interface-ARI/Getting-Started-with-ARI/
 
 # Instalação do FreePBX17 no Ubuntu 24.04 LTS
 

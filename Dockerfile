@@ -44,12 +44,14 @@ COPY --chown=asterisk:asterisk var/lib/asterisk/moh/ var/lib/asterisk/moh/
 # 10000-20000/udp (RTP - o range pode variar conforme sua configuração em rtp.conf)
 # 4569/udp (IAX2)
 # 5038/tcp (AMI - Asterisk Manager Interface)
+# 8088/tcp (Asterisk REST Interface)
 # Ajuste conforme sua necessidade e configuração (especialmente RTP)
 EXPOSE 5060/udp
 EXPOSE 5060/tcp
 EXPOSE 5061/tcp
 EXPOSE 5038/tcp
 EXPOSE 4569/udp
+EXPOSE 8088/tcp
 # EXPOSE 10000-20000/udp
 
 # Volumes a serem compartilhados
