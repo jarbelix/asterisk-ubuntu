@@ -118,6 +118,9 @@ bash-5.1#
 * Guia Definitivo - http://www.asteriskdocs.org/
 * Getting Started with ARI - https://docs.asterisk.org/Configuration/Interfaces/Asterisk-REST-Interface-ARI/Getting-Started-with-ARI/
 * Monitoring Asterisk telephony system with Zabbix via Http - https://github.com/Omid-Mohajerani/VoIP-Monitoring/wiki/Monitoring-Asterisk-telephony-system-with-Zabbix-via-Http#step-3---asterisk-configuration
+* Integração Zabbix/Asterisk - https://www.youtube.com/watch?v=hSjJkSsYvAA&ab_channel=AlexandreCastro
+  * https://github.com/alexandremjcastro/Zabbix
+  * https://github.com/theguimaraes/zabbix
 
 # Instalação do FreePBX17 no Ubuntu 24.04 LTS
 
