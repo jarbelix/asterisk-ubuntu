@@ -1,3 +1,4 @@
+[![Primeiro workflow com GitHub Actions 🚀](https://github.com/jarbelix/asterisk-ubuntu/actions/workflows/ci.yml/badge.svg)](https://github.com/jarbelix/asterisk-ubuntu/actions/workflows/ci.yml)
 # Asterisk Docker Image
 
 ```
